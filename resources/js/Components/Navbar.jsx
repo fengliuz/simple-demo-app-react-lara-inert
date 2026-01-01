@@ -8,20 +8,29 @@ export default function Navbar() {
 
     const handleLogout = (e) => {
         e.preventDefault();
-        router.post("/logout", {}, { onSuccess: () => window.location.reload() });
+        router.post(
+            "/logout",
+            {},
+            { onSuccess: () => window.location.reload() }
+        );
     };
 
     return (
-        <header className="flex">
+        <header className="flex z-20">
             <nav className="bg-slate-950 text-white fixed w-full z-20 top-0 start-0">
                 <div className="flex flex-wrap items-center justify-between mx-auto p-4">
                     {/* Logo */}
-                    <div className="flex items-center space-x-3 rtl:space-x-reverse">
+                    <Link
+                        href={"/"}
+                        className="flex items-center space-x-3 rtl:space-x-reverse"
+                    >
                         <p className="hover:text-yellow-600 transition duration-500 text-center text-xl font-semibold whitespace-nowrap">
                             <span>Flex</span>
-                            <span className="text-slate-300 hover:text-white">Era</span>
+                            <span className="text-slate-300 hover:text-white">
+                                Era
+                            </span>
                         </p>
-                    </div>
+                    </Link>
 
                     <button
                         onClick={() => setIsOpen(!isOpen)}
@@ -37,24 +46,49 @@ export default function Navbar() {
                             viewBox="0 0 24 24"
                             stroke="currentColor"
                         >
-                            <path strokeLinecap="round" strokeWidth="2" d="M5 7h14M5 12h14M5 17h14" />
+                            <path
+                                strokeLinecap="round"
+                                strokeWidth="2"
+                                d="M5 7h14M5 12h14M5 17h14"
+                            />
                         </svg>
                     </button>
 
                     {/* Menu items */}
                     <div
                         className={`${
-                            isOpen ? "translate-x-0 bg-slate-950" : "translate-x-full bg-slate-950"
+                            isOpen
+                                ? "translate-x-0 bg-slate-950"
+                                : "translate-x-full bg-slate-950"
                         } w-1/4 duration-200 transition-transform absolute right-0 top-15 rounded-2xl text-white md:block md:w-auto md:static md:right-20 md:translate-x-0`}
                     >
                         <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 rounded-base bg-neutral-secondary-soft md:flex-row md:space-x-8 md:mt-0">
                             {auth.user ? (
                                 <>
+                                {auth?.user.is_admin === 1 && (
+                                    <li>
+                                        <Link
+                                            href="/products/create"
+                                            className="block py-2 px-3 text-white bg-brand rounded md:bg-transparent md:text-fg-brand md:p-0 hover:text-indigo-400 transition duration-100"
+                                        >
+                                            <span className=" text-blue-500">
+                                                Create Products
+                                            </span>{" "}
+                                        </Link>
+                                    </li>
+
+                                )}
                                     <li>
                                         <Link
                                             href="/"
                                             className="block py-2 px-3 text-white bg-brand rounded md:bg-transparent md:text-fg-brand md:p-0 hover:text-indigo-400 transition duration-100"
                                         >
+                                            <span className=" text-blue-500">
+                                                {" "}
+                                                {auth.user.is_admin
+                                                    ? "Admin :"
+                                                    : ""}{" "}
+                                            </span>{" "}
                                             {auth.user.full_name}
                                         </Link>
                                     </li>

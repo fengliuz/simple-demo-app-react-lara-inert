@@ -3,8 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,12 +18,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(1)->create();
-
+        // User::factory(1)->create();
+         $categories = [
+            'DSLR',
+            'Mirrorless',
+            'ActionCam',
+            'Lens',
+        ];
+          foreach ($categories as $name) {
+            Category::create(['name' => $name]);
+        }
+         Product::factory(20)->create();
         User::factory()->isAdmin()->create([
-            'full_name' => 'fengli',
-            'username' => 'fengli',
+            'full_name' => '123',
+            'username' => '123',
             'email' => 'fengli@gmail.com',
+            'password' => Hash::make('123'),
         ]);
     }
 }

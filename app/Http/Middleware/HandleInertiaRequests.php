@@ -40,6 +40,9 @@ class HandleInertiaRequests extends Middleware
               'auth' => [
                 'user' => $request->user(),
             ],
+                'cart' => $request->user() ?
+                            $request->user()->cart()->with('items.product.category')->first()
+                            : null
             //
         ];
     }

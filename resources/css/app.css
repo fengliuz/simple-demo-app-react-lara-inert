@@ -12,3 +12,17 @@
 body{
     @apply bg-slate-800
 }
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float.one {
+  animation: float 5s ease-in-out infinite;
+}
+.animate-float.two {
+  animation: float 7s ease-in-out infinite;
+}
+.animate-float.three {
+  animation: float 8s ease-in-out infinite;
+}
